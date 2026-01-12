@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/src/TaranSoft.MyGarage.NotificationService/bin/Debug
+/src/TaranSoft.MyGarage.NotificationService/obj
