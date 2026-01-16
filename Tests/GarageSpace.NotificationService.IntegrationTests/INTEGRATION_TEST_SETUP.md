@@ -12,7 +12,7 @@ This guide explains how to set up and run integration tests for the email notifi
 
 ### Option A: Using appsettings.Test.json (Recommended for Development)
 
-1. Open `tests/TaranSoft.MyGarage.NotificationService.Tests/appsettings.Test.json`
+1. Open `Tests/GarageSpace.NotificationService.IntegrationTests/appsettings.Test.json`
 2. Update the email configuration with your SMTP settings:
 
 ```json
@@ -43,7 +43,7 @@ This guide explains how to set up and run integration tests for the email notifi
 
 1. Navigate to the test project directory:
 ```bash
-cd tests/TaranSoft.MyGarage.NotificationService.Tests
+cd Tests/GarageSpace.NotificationService.IntegrationTests
 ```
 
 2. Set up user secrets:
@@ -123,19 +123,19 @@ TestEmail__RecipientEmail=recipient@example.com
 
 ```bash
 # From the solution root
-dotnet test tests/TaranSoft.MyGarage.NotificationService.Tests/ --filter "Category=Integration"
+dotnet test Tests/GarageSpace.NotificationService.IntegrationTests/ --filter "Category=Integration"
 ```
 
 ### Run Specific Integration Test
 
 ```bash
-dotnet test tests/TaranSoft.MyGarage.NotificationService.Tests/ --filter "FullyQualifiedName~EmailServiceIntegrationTests.SendEmailAsync_WithValidConfiguration_ShouldSendEmailSuccessfully"
+dotnet test Tests/GarageSpace.NotificationService.IntegrationTests/ --filter "FullyQualifiedName~EmailServiceIntegrationTests.SendEmailAsync_WithValidConfiguration_ShouldSendEmailSuccessfully"
 ```
 
 ### Run Tests with Verbose Output
 
 ```bash
-dotnet test tests/TaranSoft.MyGarage.NotificationService.Tests/ --filter "Category=Integration" --logger "console;verbosity=detailed"
+dotnet test Tests/GarageSpace.NotificationService.IntegrationTests/ --filter "Category=Integration" --logger "console;verbosity=detailed"
 ```
 
 ## Step 5: Enable Real Email Tests
@@ -147,7 +147,7 @@ By default, integration tests that send real emails are **skipped** for safety. 
 
 ```bash
 # Run only enabled integration tests
-dotnet test tests/TaranSoft.MyGarage.NotificationService.Tests/ --filter "Category=Integration&FullyQualifiedName!~Skip"
+dotnet test Tests/GarageSpace.NotificationService.IntegrationTests/ --filter "Category=Integration&FullyQualifiedName!~Skip"
 ```
 
 Or modify the test file to remove `Skip = "..."` from the `[Fact]` attributes.
@@ -162,13 +162,12 @@ Or modify the test file to remove `Skip = "..."` from the `[Fact]` attributes.
 ## Test Structure
 
 ```
-tests/TaranSoft.MyGarage.NotificationService.Tests/
-├── Integration/
-│   ├── EmailServiceIntegrationTests.cs      # Tests for IEmailService
-│   ├── NotificationServiceIntegrationTests.cs # Tests for INotificationService
-│   └── EmailTestFixture.cs                  # Test fixture with DI setup
+Tests/GarageSpace.NotificationService.IntegrationTests/
+├── EmailServiceIntegrationTests.cs           # Tests for IEmailService
+├── NotificationServiceIntegrationTests.cs    # Tests for INotificationService
+├── EmailTestFixture.cs                       # Test fixture with DI setup
 ├── appsettings.Test.json                    # Test configuration
-└── INTEGRATION_TEST_SETUP.md               # This file
+└── INTEGRATION_TEST_SETUP.md                # This file
 ```
 
 ## Troubleshooting

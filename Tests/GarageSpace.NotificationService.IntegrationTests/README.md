@@ -1,11 +1,11 @@
 # Integration Tests
 
-This project contains integration tests for the TaranSoft.MyGarage.NotificationService that send **real emails**.
+This project contains integration tests for the GarageSpace.NotificationService that send **real emails**.
 
 ## Project Structure
 
 ```
-TaranSoft.MyGarage.NotificationService.Tests/
+GarageSpace.NotificationService.Tests/
 ├── Integration/
 │   ├── EmailServiceIntegrationTests.cs      # Tests for IEmailService
 │   ├── NotificationServiceIntegrationTests.cs # Tests for INotificationService
@@ -32,19 +32,19 @@ See [INTEGRATION_TEST_SETUP.md](./INTEGRATION_TEST_SETUP.md) for comprehensive s
 ### Run All Integration Tests
 
 ```bash
-dotnet test tests/TaranSoft.MyGarage.NotificationService.Tests/ --filter "Category=Integration"
+dotnet test tests/GarageSpace.NotificationService.Tests/ --filter "Category=Integration"
 ```
 
 ### Run Specific Test
 
 ```bash
-dotnet test tests/TaranSoft.MyGarage.NotificationService.Tests/ --filter "FullyQualifiedName~EmailServiceIntegrationTests.SendEmailAsync_WithValidConfiguration_ShouldSendEmailSuccessfully"
+dotnet test tests/GarageSpace.NotificationService.Tests/ --filter "FullyQualifiedName~EmailServiceIntegrationTests.SendEmailAsync_WithValidConfiguration_ShouldSendEmailSuccessfully"
 ```
 
 ### Run with Verbose Output
 
 ```bash
-dotnet test tests/TaranSoft.MyGarage.NotificationService.Tests/ --filter "Category=Integration" --logger "console;verbosity=detailed"
+dotnet test tests/GarageSpace.NotificationService.Tests/ --filter "Category=Integration" --logger "console;verbosity=detailed"
 ```
 
 ## Test Dependencies

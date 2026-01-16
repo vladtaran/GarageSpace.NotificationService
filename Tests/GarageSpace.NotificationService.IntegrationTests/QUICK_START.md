@@ -27,13 +27,13 @@ Edit `appsettings.Test.json` and add your SMTP credentials:
 
 ### Step 2: Enable Real Email Tests
 
-Open `Integration/EmailServiceIntegrationTests.cs` and remove `Skip = "..."` from the test methods you want to run, or comment out the `[Fact(Skip = "...")]` line.
+Open `EmailServiceIntegrationTests.cs` and remove `Skip = "..."` from the test methods you want to run, or comment out the `[Fact(Skip = "...")]` line.
 
 ### Step 3: Run Tests
 
 ```bash
 # From solution root
-dotnet test tests/TaranSoft.MyGarage.NotificationService.Tests/ --filter "Category=Integration"
+dotnet test Tests/GarageSpace.NotificationService.IntegrationTests/ --filter "Category=Integration"
 ```
 
 ### Step 4: Check Your Email
@@ -43,7 +43,7 @@ Check the recipient email inbox to verify the test email was sent successfully.
 ## Alternative: Use User Secrets (More Secure)
 
 ```bash
-cd tests/TaranSoft.MyGarage.NotificationService.Tests
+cd Tests/GarageSpace.NotificationService.IntegrationTests
 dotnet user-secrets init
 dotnet user-secrets set "Email:Username" "your-email@gmail.com"
 dotnet user-secrets set "Email:Password" "your-app-password"
