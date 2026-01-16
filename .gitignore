@@ -3,5 +3,7 @@
 ################################################################################
 
 /.vs
-/src/TaranSoft.MyGarage.NotificationService/bin/Debug
-/src/TaranSoft.MyGarage.NotificationService/obj
+/src/GarageSpace.*/bin
+/src/GarageSpace.*/obj
+/Tests/GarageSpace.*/bin
+/Tests/GarageSpace.*/obj

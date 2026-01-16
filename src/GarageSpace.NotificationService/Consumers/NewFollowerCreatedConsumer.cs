@@ -1,8 +1,8 @@
 using MassTransit;
-using TaranSoft.MyGarage.NotificationService.Events;
-using TaranSoft.MyGarage.NotificationService.Services;
+using GarageSpace.NotificationService.Events;
+using GarageSpace.NotificationService.Services;
 
-namespace TaranSoft.MyGarage.NotificationService.Consumers;
+namespace GarageSpace.NotificationService.Consumers;
 
 public class NewFollowerCreatedConsumer : IConsumer<NewFollowerCreated>
 {
