@@ -1,4 +1,4 @@
-namespace TaranSoft.MyGarage.NotificationService;
+namespace GarageSpace.NotificationService;
 
 public class Worker : BackgroundService
 {
