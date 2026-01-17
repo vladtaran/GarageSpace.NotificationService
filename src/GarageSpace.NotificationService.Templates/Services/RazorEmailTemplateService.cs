@@ -21,7 +21,7 @@ public class RazorEmailTemplateService : IEmailTemplateRendererService
 
     private static readonly Dictionary<string, string> TemplateSubjects = new()
     {
-        { "NewFollowerEmail", "You have a new follower!" }
+        { "NewSubscriberEmail", "You have a new subscriber!" }
     };
 
     public RazorEmailTemplateService(
@@ -38,10 +38,60 @@ public class RazorEmailTemplateService : IEmailTemplateRendererService
 
     public async Task<string> RenderTemplateAsync<T>(string templateName, T model, CancellationToken cancellationToken = default)
     {
-        var viewPath = $"Templates/{templateName}";
-        
+        var normalizedName = templateName.EndsWith(".cshtml", StringComparison.OrdinalIgnoreCase)
+            ? templateName.Substring(0, templateName.Length - 7)
+            : templateName;
+
+        var viewPaths = new[]
+        {
+            normalizedName,
+            $"Views/{normalizedName}", 
+            $"/Views/{normalizedName}",
+            $"Views/{normalizedName}.cshtml",
+            $"/Views/{normalizedName}.cshtml"
+        };
+
         var actionContext = GetActionContext();
-        var view = FindView(actionContext, viewPath);
+        IView? view = null;
+        string? foundPath = null;
+
+        foreach (var viewPath in viewPaths)
+        {
+            var getViewResult = _viewEngine.GetView(null, viewPath, true);
+            if (getViewResult.Success)
+            {
+                view = getViewResult.View;
+                foundPath = viewPath;
+                break;
+            }
+
+            var findViewResult = _viewEngine.FindView(actionContext, viewPath, true);
+            if (findViewResult.Success)
+            {
+                view = findViewResult.View;
+                foundPath = viewPath;
+                break;
+            }
+        }
+
+        if (view == null)
+        {
+            var allSearchedLocations = viewPaths.SelectMany(path =>
+            {
+                var getResult = _viewEngine.GetView(null, path, true);
+                var findResult = _viewEngine.FindView(actionContext, path, true);
+                return getResult.SearchedLocations.Concat(findResult.SearchedLocations);
+            }).Distinct();
+
+            var errorMessage = string.Join(
+                Environment.NewLine,
+                new[] { $"Unable to find view '{templateName}'. The following locations were searched:" }.Concat(allSearchedLocations));
+
+            _logger.LogError(errorMessage);
+            throw new InvalidOperationException(errorMessage);
+        }
+
+        _logger.LogDebug("Found view '{TemplateName}' at path '{ViewPath}'", templateName, foundPath);
 
         using var output = new StringWriter();
         var viewContext = new ViewContext(
@@ -61,32 +111,13 @@ public class RazorEmailTemplateService : IEmailTemplateRendererService
 
     public string GetSubject(string templateName)
     {
-        return TemplateSubjects.TryGetValue(templateName, out var subject) 
+        var normalizedName = templateName.EndsWith(".cshtml", StringComparison.OrdinalIgnoreCase)
+            ? templateName.Substring(0, templateName.Length - 7)
+            : templateName;
+
+        return TemplateSubjects.TryGetValue(normalizedName, out var subject) 
             ? subject 
             : "Notification";
-    }
-
-    private IView FindView(ActionContext actionContext, string viewName)
-    {
-        var getViewResult = _viewEngine.GetView(null, viewName, true);
-        if (getViewResult.Success)
-        {
-            return getViewResult.View;
-        }
-
-        var findViewResult = _viewEngine.FindView(actionContext, viewName, true);
-        if (findViewResult.Success)
-        {
-            return findViewResult.View;
-        }
-
-        var searchedLocations = getViewResult.SearchedLocations.Concat(findViewResult.SearchedLocations);
-        var errorMessage = string.Join(
-            Environment.NewLine,
-            new[] { $"Unable to find view '{viewName}'. The following locations were searched:" }.Concat(searchedLocations));
-
-        _logger.LogError(errorMessage);
-        throw new InvalidOperationException(errorMessage);
     }
 
     private ActionContext GetActionContext()

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36811.4
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11408.92 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageSpace.NotificationService", "src\GarageSpace.NotificationService\GarageSpace.NotificationService.csproj", "{E0AD185D-6B8D-4110-81BA-5FC4F745AAA7}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageSpace.NotificationService.Interfaces", "src\GarageSpace.NotificationService.Interfaces\GarageSpace.NotificationService.Interfaces.csproj", "{C2F7BA5E-6C11-4963-8FFF-F52E7F9D1767}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageSpace.NotificationService.Contracts", "src\GarageSpace.NotificationService.Contracts\GarageSpace.NotificationService.Contracts.csproj", "{9A017AF5-02BB-4280-B5CA-B28836784ACF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{55F07DD1-ACE0-41EC-B841-404557A28D60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9A017AF5-02BB-4280-B5CA-B28836784ACF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890} = {55F07DD1-ACE0-41EC-B841-404557A28D60}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A632A7D1-E17D-4974-9DA5-A33D667BC7DB}
 	EndGlobalSection
 EndGlobal

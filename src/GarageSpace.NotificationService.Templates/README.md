@@ -7,11 +7,11 @@ This project contains Razor email templates for the notification service.
 ```
 GarageSpace.NotificationService.Templates/
 ├── Models/                          # Template view models
-│   └── NewFollowerEmailModel.cs
+│   └── NewSubscriberEmailModel.cs
 ├── Templates/                       # Razor email templates
 │   ├── _EmailLayout.cshtml         # Base email layout
 │   ├── _ViewImports.cshtml        # Razor imports
-│   └── NewFollowerEmail.cshtml    # New follower email template
+│   └── NewSubscriberEmail.cshtml    # New subscriber email template
 └── Services/                       # Template rendering services
     ├── IEmailTemplateService.cs
     └── RazorEmailTemplateService.cs
@@ -24,16 +24,16 @@ GarageSpace.NotificationService.Templates/
 builder.Services.AddScoped<IEmailTemplateService, RazorEmailTemplateService>();
 
 // Use in NotificationService
-var model = new NewFollowerEmailModel
+var model = new NewSubscriberEmailModel
 {
-    UserId = followerEvent.UserId,
-    FollowedUserId = followerEvent.FollowedUserId,
-    Timestamp = followerEvent.Timestamp,
+    UserId = subscriberEvent.UserId,
+    FollowedUserId = subscriberEvent.FollowedUserId,
+    Timestamp = subscriberEvent.Timestamp,
     AppName = "GarageSpace"
 };
 
-var emailBody = await _templateService.RenderTemplateAsync("NewFollowerEmail", model);
-var subject = _templateService.GetSubject("NewFollowerEmail");
+var emailBody = await _templateService.RenderTemplateAsync("NewSubscriberEmail", model);
+var subject = _templateService.GetSubject("NewSubscriberEmail");
 ```
 
 ## Adding New Templates
