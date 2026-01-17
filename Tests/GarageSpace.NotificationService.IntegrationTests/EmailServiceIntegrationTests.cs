@@ -1,9 +1,7 @@
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using GarageSpace.NotificationService.Services;
 using Xunit;
+using GarageSpace.NotificationService.Interfaces;
 
 namespace GarageSpace.NotificationService.IntegrationTests;
 
