@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Mail;
+using GarageSpace.NotificationService.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace GarageSpace.NotificationService.Services;
@@ -46,7 +47,6 @@ public class SmtpEmailService : IEmailService
             using var client = CreateSmtpClient();
             using var message = CreateMailMessage(to, subject, body, isHtml);
 
-            // Best Practice: Use cancellation token for async operations
             await client.SendMailAsync(message, cancellationToken);
 
             _logger.LogInformation("Successfully sent email to {Recipient}", to);

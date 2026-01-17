@@ -1,10 +1,10 @@
 using MassTransit;
 using GarageSpace.NotificationService.Events;
-using GarageSpace.NotificationService.Services;
+using GarageSpace.NotificationService.Interfaces;
 
 namespace GarageSpace.NotificationService.Consumers;
 
-public class NewFollowerCreatedConsumer : IConsumer<NewFollowerCreated>
+public class NewFollowerCreatedConsumer : IConsumer<NewSubscriberCreated>
 {
     private readonly ILogger<NewFollowerCreatedConsumer> _logger;
     private readonly INotificationService _notificationService;
@@ -15,7 +15,7 @@ public class NewFollowerCreatedConsumer : IConsumer<NewFollowerCreated>
         _notificationService = notificationService;
     }
 
-    public async Task Consume(ConsumeContext<NewFollowerCreated> context)
+    public async Task Consume(ConsumeContext<NewSubscriberCreated> context)
     {
         var message = context.Message;
         
@@ -24,7 +24,7 @@ public class NewFollowerCreatedConsumer : IConsumer<NewFollowerCreated>
 
         try
         {
-            await _notificationService.HandleNewFollowerCreatedNotificationAsync(message, context.CancellationToken);
+            await _notificationService.HandleNewSubscriberCreatedNotificationAsync(message, context.CancellationToken);
         }
         catch (Exception ex)
         {
