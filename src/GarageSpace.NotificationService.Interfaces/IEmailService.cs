@@ -1,4 +1,4 @@
-namespace GarageSpace.NotificationService.Services;
+namespace GarageSpace.NotificationService.Interfaces;
 
 public interface IEmailService
 {

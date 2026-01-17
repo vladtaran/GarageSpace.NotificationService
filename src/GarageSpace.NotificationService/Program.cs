@@ -2,11 +2,11 @@ using MassTransit;
 using GarageSpace.NotificationService;
 using GarageSpace.NotificationService.Consumers;
 using GarageSpace.NotificationService.Services;
+using GarageSpace.NotificationService.Interfaces;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
 
-// Best Practice: Configure email settings from configuration
 builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection(EmailSettings.SectionName));
 

@@ -1,4 +1,5 @@
 using GarageSpace.NotificationService.Events;
+using GarageSpace.NotificationService.Interfaces;
 
 namespace GarageSpace.NotificationService.Services;
 
@@ -18,7 +19,7 @@ public class NotificationService : INotificationService
         _configuration = configuration;
     }
 
-    public async Task HandleNewFollowerCreatedNotificationAsync(NewFollowerCreated evt, CancellationToken cancellationToken = default)
+    public async Task HandleNewSubscriberCreatedNotificationAsync(NewSubscriberCreated evt, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Sending new follower notification for user {FollowedUserId}", evt.FollowedUserId);
 
@@ -35,7 +36,7 @@ public class NotificationService : INotificationService
         }
     }
 
-    private async Task SendEmailNotificationAsync(NewFollowerCreated followerEvent, CancellationToken cancellationToken)
+    private async Task SendEmailNotificationAsync(NewSubscriberCreated followerEvent, CancellationToken cancellationToken)
     {
         var recipientEmail = await GetUserEmailAsync(followerEvent.FollowedUserId, cancellationToken);
         
@@ -92,11 +93,8 @@ public class NotificationService : INotificationService
         return null;
     }
 
-    private string BuildEmailBody(NewFollowerCreated followerEvent)
+    private string BuildEmailBody(NewSubscriberCreated followerEvent)
     {
-        // Best Practice: Use email templates (Razor, Handlebars, or simple string replacement)
-        // For production, consider using a template engine or dedicated email template service
-        
         var fromEmail = _configuration["Email:FromAddress"] ?? "noreply@mygarage.com";
         var appName = _configuration["Email:AppName"] ?? "MyGarage";
 
