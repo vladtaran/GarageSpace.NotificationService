@@ -3,6 +3,7 @@ using GarageSpace.NotificationService;
 using GarageSpace.NotificationService.Consumers;
 using GarageSpace.NotificationService.Services;
 using GarageSpace.NotificationService.Interfaces;
+using GarageSpace.NotificationService.Templates.Extensions;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
@@ -10,15 +11,15 @@ builder.Services.AddHostedService<Worker>();
 builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection(EmailSettings.SectionName));
 
-// Best Practice: Register email service as singleton (SMTP client can be reused)
-// For HTTP-based services (SendGrid, etc.), consider scoped or transient
 builder.Services.AddSingleton<IEmailService, SmtpEmailService>();
 
 builder.Services.AddScoped<INotificationService, NotificationService>();
 
+builder.Services.AddEmailTemplates();
+
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<NewFollowerCreatedConsumer>();
+    x.AddConsumer<NewSubscriberCreatedConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {

@@ -1,0 +1,10 @@
+@model GarageSpace.NotificationService.Templates.Models.NewSubscriberEmailModel
+@{
+    Layout = "_EmailLayout";
+}
+
+<h2>You have a new subscriber!</h2>
+<p>Great news! Someone just started following you on @Model.AppName.</p>
+<p><strong>Subscriber ID:</strong> @Model.UserId</p>
+<p><strong>Date:</strong> @Model.Timestamp.ToString("MMMM dd, yyyy 'at' HH:mm")</p>
+<p>Thank you for being part of our community!</p>

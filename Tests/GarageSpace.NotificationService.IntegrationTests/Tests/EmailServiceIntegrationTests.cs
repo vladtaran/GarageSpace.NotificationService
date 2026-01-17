@@ -1,40 +1,38 @@
 using FluentAssertions;
+using GarageSpace.NotificationService.Interfaces;
+using GarageSpace.NotificationService.Templates.Models;
 using Microsoft.Extensions.Configuration;
 using Xunit;
-using GarageSpace.NotificationService.Interfaces;
 
-namespace GarageSpace.NotificationService.IntegrationTests;
+namespace GarageSpace.NotificationService.IntegrationTests.Tests;
 
 public class EmailServiceIntegrationTests : IClassFixture<EmailTestFixture>
 {
     private readonly EmailTestFixture _fixture;
     private readonly IEmailService _emailService;
+    private readonly IEmailTemplateRendererService _emailTemplateRendererService;
     private readonly IConfiguration _configuration;
 
     public EmailServiceIntegrationTests(EmailTestFixture fixture)
     {
         _fixture = fixture;
         _emailService = fixture.EmailService;
+        _emailTemplateRendererService = fixture.EmailTemplateRendererService;
         _configuration = fixture.Configuration;
     }
 
     [Fact]
-    public async Task SendEmailAsync_WithValidConfiguration_ShouldSendEmailSuccessfully()
+    public async Task SendEmailAsync_NewSubscriberEmail_ShouldSendSuccessfully()
     {
         // Arrange
         var recipientEmail = _configuration["TestEmail:RecipientEmail"] 
             ?? throw new InvalidOperationException("TestEmail:RecipientEmail must be configured");
         
         var subject = $"Integration Test - {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss}";
-        var body = $@"
-            <html>
-            <body>
-                <h1>Email Service Integration Test</h1>
-                <p>This is a test email sent from the integration test suite.</p>
-                <p><strong>Timestamp:</strong> {DateTime.UtcNow:O}</p>
-                <p>If you received this email, the integration test passed!</p>
-            </body>
-            </html>";
+
+        NewSubscriberEmailModel testEmailModel = new NewSubscriberEmailModel { Timestamp = DateTime.UtcNow };
+
+        string body = await _emailTemplateRendererService.RenderTemplateAsync("Email/NewSubscriberEmail", testEmailModel);
 
         // Act
         var act = async () => await _emailService.SendEmailAsync(
