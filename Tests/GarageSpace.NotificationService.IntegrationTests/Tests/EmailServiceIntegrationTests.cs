@@ -22,7 +22,7 @@ public class EmailServiceIntegrationTests : IClassFixture<EmailTestFixture>
     }
 
     [Fact]
-    public async Task SendEmailAsync_NewSubscriberEmail_ShouldSendSuccessfully()
+    public async Task SendEmailAsync_NewUserBlogFollower_ShouldSendSuccessfully()
     {
         // Arrange
         var recipientEmail = _configuration["TestEmail:RecipientEmail"] 
