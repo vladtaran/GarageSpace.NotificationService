@@ -1,4 +1,4 @@
-using GarageSpace.NotificationService.Events;
+using GarageSpace.Contracts;
 using GarageSpace.NotificationService.Interfaces;
 using GarageSpace.NotificationService.Templates.Models;
 
@@ -23,9 +23,9 @@ public class NotificationService : INotificationService
         _configuration = configuration;
     }
 
-    public async Task HandleNewSubscriberCreatedNotificationAsync(NewSubscriberCreated evt, CancellationToken cancellationToken = default)
+    public async Task HandleNewSubscriberCreatedNotificationAsync(UserBlogFollowedEvent evt, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Sending new subscriber notification for user {FollowedUserId}", evt.SubscribedUserId);
+        _logger.LogInformation("Sending new subscriber notification for user {FollowedUserId}", evt.FollowerUserId);
 
         try
         {
@@ -35,41 +35,41 @@ public class NotificationService : INotificationService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to send new subscriber notification for user {FollowedUserId}", evt.SubscribedUserId);
+            _logger.LogError(ex, "Failed to send new subscriber notification for user {FollowedUserId}", evt.FollowerUserId);
             throw;
         }
     }
 
-    private async Task SendEmailNotificationAsync(NewSubscriberCreated subscriberEvent, CancellationToken cancellationToken)
+    private async Task SendEmailNotificationAsync(UserBlogFollowedEvent subscriberEvent, CancellationToken cancellationToken)
     {
-        var recipientEmail = await GetUserEmailAsync(subscriberEvent.SubscribedUserId, cancellationToken);
+        var recipientEmail = await GetUserEmailAsync(subscriberEvent.FollowerUserId, cancellationToken);
 
         if (string.IsNullOrWhiteSpace(recipientEmail))
         {
-            _logger.LogWarning("Cannot send email notification: No email address found for user {FollowedUserId}", subscriberEvent.SubscribedUserId);
+            _logger.LogWarning("Cannot send email notification: No email address found for user {FollowedUserId}", subscriberEvent.FollowerUserId);
             return;
         }
 
         var emailSubject = "You have a new subscriber!";
         var emailBody = await BuildEmailBodyAsync(subscriberEvent);
 
-        _logger.LogInformation("Sending email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.SubscribedUserId);
+        _logger.LogInformation("Sending email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.FollowerUserId);
 
         try
         {
             await _emailService.SendEmailAsync(recipientEmail, emailSubject, emailBody, isHtml: true, cancellationToken);
 
-            _logger.LogInformation("Successfully sent email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.SubscribedUserId);
+            _logger.LogInformation("Successfully sent email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.FollowerUserId);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex,
-                "Failed to send email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.SubscribedUserId);
+                "Failed to send email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.FollowerUserId);
             throw;
         }
     }
 
-    private async Task<string?> GetUserEmailAsync(Guid userId, CancellationToken cancellationToken)
+    private async Task<string?> GetUserEmailAsync(long userId, CancellationToken cancellationToken)
     {
         // Best Practice: This should call your user service or database
         // For now, returning null - implement based on your architecture
@@ -83,13 +83,13 @@ public class NotificationService : INotificationService
         return null;
     }
 
-    private async Task<string> BuildEmailBodyAsync(NewSubscriberCreated subscriberEvent)
+    private async Task<string> BuildEmailBodyAsync(UserBlogFollowedEvent subscriberEvent)
     {
         NewSubscriberEmailModel testEmailModel = new NewSubscriberEmailModel 
         {
             UserId = subscriberEvent.UserId,
-            SubscribedUserId = subscriberEvent.SubscribedUserId,
-            Timestamp = subscriberEvent.Timestamp
+            SubscribedUserId = subscriberEvent.FollowerUserId,
+            Timestamp = subscriberEvent.OccurredAt
         };
 
         return await _emailTemplateRendererService.RenderTemplateAsync("Email/NewSubscriberEmail", testEmailModel);

@@ -1,10 +1,10 @@
 using MassTransit;
-using GarageSpace.NotificationService.Events;
 using GarageSpace.NotificationService.Interfaces;
+using GarageSpace.Contracts;
 
 namespace GarageSpace.NotificationService.Consumers;
 
-public class NewSubscriberCreatedConsumer : IConsumer<NewSubscriberCreated>
+public class NewSubscriberCreatedConsumer : IConsumer<UserBlogFollowedEvent>
 {
     private readonly ILogger<NewSubscriberCreatedConsumer> _logger;
     private readonly INotificationService _notificationService;
@@ -15,12 +15,12 @@ public class NewSubscriberCreatedConsumer : IConsumer<NewSubscriberCreated>
         _notificationService = notificationService;
     }
 
-    public async Task Consume(ConsumeContext<NewSubscriberCreated> context)
+    public async Task Consume(ConsumeContext<UserBlogFollowedEvent> context)
     {
         var message = context.Message;
         
         _logger.LogDebug("Consuming new subscriber event: SubscriberId={SubscriberId}, SubscribedUserId={SubscribedUserId}, Timestamp={Timestamp}", 
-            message.UserId, message.SubscribedUserId, message.Timestamp);
+            message.UserId, message.FollowerUserId, message.OccurredAt);
 
         try
         {
@@ -28,7 +28,7 @@ public class NewSubscriberCreatedConsumer : IConsumer<NewSubscriberCreated>
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error consuming new subscriber event: SubscriberId={SubscriberId}, SubscribedUserId={SubscribedUserId}", message.UserId, message.SubscribedUserId);
+            _logger.LogError(ex, "Error consuming new subscriber event: SubscriberId={SubscriberId}, SubscribedUserId={SubscribedUserId}", message.UserId, message.FollowerUserId);
             throw;
         }
     }
