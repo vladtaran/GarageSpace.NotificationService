@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GarageSpace.NotificationService.Contracts\GarageSpace.NotificationService.Contracts.csproj" />
+    <PackageReference Include="GarageSpace.Contracts" Version="0.1.0" />
   </ItemGroup>
 
 </Project>

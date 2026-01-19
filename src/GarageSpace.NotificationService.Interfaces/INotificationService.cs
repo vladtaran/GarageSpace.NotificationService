@@ -1,8 +1,8 @@
-using GarageSpace.NotificationService.Events;
+using GarageSpace.Contracts;
 
 namespace GarageSpace.NotificationService.Interfaces;
 
 public interface INotificationService
 {
-    Task HandleNewSubscriberCreatedNotificationAsync(NewSubscriberCreated evt, CancellationToken cancellationToken = default);
+    Task HandleNewSubscriberCreatedNotificationAsync(UserBlogFollowedEvent evt, CancellationToken cancellationToken = default);
 } 
