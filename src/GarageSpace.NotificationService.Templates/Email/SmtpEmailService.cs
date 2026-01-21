@@ -1,9 +1,10 @@
+using GarageSpace.NotificationService.Application.Interfaces;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Mail;
-using GarageSpace.NotificationService.Interfaces;
-using Microsoft.Extensions.Options;
 
-namespace GarageSpace.NotificationService.Services;
+namespace GarageSpace.NotificationService.Templates.Email;
 
 public class SmtpEmailService : IEmailService
 {

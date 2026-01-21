@@ -1,8 +1,9 @@
 using MassTransit;
-using GarageSpace.NotificationService.Interfaces;
 using GarageSpace.Contracts;
+using GarageSpace.NotificationService.Application.Interfaces;
+using Microsoft.Extensions.Logging;
 
-namespace GarageSpace.NotificationService.Consumers;
+namespace GarageSpace.NotificationService.Application.Consumers;
 
 public class NewSubscriberCreatedConsumer : IConsumer<UserBlogFollowedEvent>
 {

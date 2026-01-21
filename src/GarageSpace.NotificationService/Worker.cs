@@ -1,4 +1,4 @@
-namespace GarageSpace.NotificationService;
+namespace GarageSpace.NotificationService.Worker;
 
 public class Worker : BackgroundService
 {

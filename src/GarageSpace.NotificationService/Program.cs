@@ -1,9 +1,10 @@
 using MassTransit;
-using GarageSpace.NotificationService;
-using GarageSpace.NotificationService.Consumers;
-using GarageSpace.NotificationService.Services;
-using GarageSpace.NotificationService.Interfaces;
 using GarageSpace.NotificationService.Templates.Extensions;
+using GarageSpace.NotificationService.Worker;
+using GarageSpace.NotificationService.Application.Consumers;
+using GarageSpace.NotificationService.Application.Services;
+using GarageSpace.NotificationService.Application.Interfaces;
+using GarageSpace.NotificationService.Templates.Email;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();

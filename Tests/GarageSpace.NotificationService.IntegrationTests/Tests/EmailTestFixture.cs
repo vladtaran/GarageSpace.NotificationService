@@ -4,10 +4,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.FileProviders;
-using GarageSpace.NotificationService.Services;
-using GarageSpace.NotificationService.Interfaces;
 using GarageSpace.NotificationService.Templates.Extensions;
 using GarageSpace.NotificationService.IntegrationTests.Infrastructure;
+using GarageSpace.NotificationService.Templates.Email;
+using GarageSpace.NotificationService.Application.Interfaces;
 
 namespace GarageSpace.NotificationService.IntegrationTests.Tests;
 
@@ -40,7 +40,6 @@ public sealed class EmailTestFixture : IDisposable
             builder.SetMinimumLevel(LogLevel.Debug);
         });
 
-        // IWebHostEnvironment for Razor
         services.AddSingleton<IWebHostEnvironment>(new TestWebHostEnvironment
         {
             ApplicationName = "GarageSpace.NotificationService.IntegrationTests",
@@ -53,7 +52,7 @@ public sealed class EmailTestFixture : IDisposable
             Configuration.GetSection(EmailSettings.SectionName));
 
         services.AddSingleton<IEmailService, SmtpEmailService>();
-        services.AddScoped<INotificationService, Services.NotificationService>();
+        services.AddScoped<INotificationService, Application.Services.NotificationService>();
 
         // Razor templates
         services.AddEmailTemplates();

@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GarageSpace.NotificationService.Interfaces\GarageSpace.NotificationService.Interfaces.csproj" />
+    <ProjectReference Include="..\GarageSpace.NotificationService.Application\GarageSpace.NotificationService.Application.csproj" />
+    <ProjectReference Include="..\GarageSpace.NotificationService.Infrastructure\GarageSpace.NotificationService.Infrastructure.csproj" />
     <ProjectReference Include="..\GarageSpace.NotificationService.Templates\GarageSpace.NotificationService.Templates.csproj" />
   </ItemGroup>
 </Project>

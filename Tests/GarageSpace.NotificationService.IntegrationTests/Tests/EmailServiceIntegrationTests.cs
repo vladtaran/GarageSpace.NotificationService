@@ -1,5 +1,5 @@
 using FluentAssertions;
-using GarageSpace.NotificationService.Interfaces;
+using GarageSpace.NotificationService.Application.Interfaces;
 using GarageSpace.NotificationService.Templates.Models;
 using Microsoft.Extensions.Configuration;
 using Xunit;

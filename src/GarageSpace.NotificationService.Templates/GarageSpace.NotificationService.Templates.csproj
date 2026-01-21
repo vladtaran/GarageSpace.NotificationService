@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GarageSpace.NotificationService.Interfaces\GarageSpace.NotificationService.Interfaces.csproj" />
+    <ProjectReference Include="..\GarageSpace.NotificationService.Application\GarageSpace.NotificationService.Application.csproj" />
   </ItemGroup>
 
 </Project>
