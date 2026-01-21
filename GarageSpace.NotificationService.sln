@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36811.4 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageSpace.NotificationService.Worker", "src\GarageSpace.NotificationService\GarageSpace.NotificationService.Worker.csproj", "{E0AD185D-6B8D-4110-81BA-5FC4F745AAA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageSpace.NotificationService.Worker", "src\GarageSpace.NotificationService.Worker\GarageSpace.NotificationService.Worker.csproj", "{E0AD185D-6B8D-4110-81BA-5FC4F745AAA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageSpace.NotificationService.IntegrationTests", "Tests\GarageSpace.NotificationService.IntegrationTests\GarageSpace.NotificationService.IntegrationTests.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
 EndProject
