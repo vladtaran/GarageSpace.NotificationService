@@ -1,5 +1,5 @@
-using GarageSpace.NotificationService.Interfaces;
-using GarageSpace.NotificationService.Templates.Services;
+using GarageSpace.NotificationService.Application.Interfaces;
+using GarageSpace.NotificationService.Templates.Email;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Diagnostics;
@@ -21,6 +21,8 @@ public static class ServiceCollectionExtensions
             .AddApplicationPart(templatesAssembly);
 
         services.AddScoped<IEmailTemplateRendererService, RazorEmailTemplateService>();
+        services.AddScoped<IEmailNotificationSender, EmailNotificationSender>();
+        services.AddScoped<IEmailService, SmtpEmailService>();
 
         return services;
     }

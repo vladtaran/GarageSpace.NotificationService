@@ -1,4 +1,4 @@
-using GarageSpace.NotificationService.Interfaces;
+using GarageSpace.NotificationService.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 
-namespace GarageSpace.NotificationService.Templates.Services;
+namespace GarageSpace.NotificationService.Templates.Email;
 
 public class RazorEmailTemplateService : IEmailTemplateRendererService
 {

@@ -1,25 +1,23 @@
 using GarageSpace.Contracts;
-using GarageSpace.NotificationService.Interfaces;
-using GarageSpace.NotificationService.Templates.Models;
+using GarageSpace.NotificationService.Application.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
-namespace GarageSpace.NotificationService.Services;
+namespace GarageSpace.NotificationService.Application.Services;
 
 public class NotificationService : INotificationService
 {
     private readonly ILogger<NotificationService> _logger;
-    private readonly IEmailService _emailService;
-    private readonly IEmailTemplateRendererService _emailTemplateRendererService;
+    private readonly IEmailNotificationSender _emailNotificationSender;
     private readonly IConfiguration _configuration;
 
     public NotificationService(
         ILogger<NotificationService> logger,
-        IEmailService emailService,
-        IEmailTemplateRendererService emailTemplateRendererService,
+        IEmailNotificationSender emailNotificationSender,
         IConfiguration configuration)
     {
         _logger = logger;
-        _emailService = emailService;
-        _emailTemplateRendererService = emailTemplateRendererService;
+        _emailNotificationSender = emailNotificationSender;
         _configuration = configuration;
     }
 
@@ -50,16 +48,9 @@ public class NotificationService : INotificationService
             return;
         }
 
-        var emailSubject = "You have a new subscriber!";
-        var emailBody = await BuildEmailBodyAsync(subscriberEvent);
-
-        _logger.LogInformation("Sending email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.FollowerUserId);
-
         try
         {
-            await _emailService.SendEmailAsync(recipientEmail, emailSubject, emailBody, isHtml: true, cancellationToken);
-
-            _logger.LogInformation("Successfully sent email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.FollowerUserId);
+            await _emailNotificationSender.SendEmailAsync(recipientEmail, new EmailData());
         }
         catch (Exception ex)
         {
@@ -81,17 +72,5 @@ public class NotificationService : INotificationService
         // This is a placeholder - replace with actual implementation
         await Task.CompletedTask;
         return null;
-    }
-
-    private async Task<string> BuildEmailBodyAsync(UserBlogFollowedEvent subscriberEvent)
-    {
-        NewSubscriberEmailModel testEmailModel = new NewSubscriberEmailModel 
-        {
-            UserId = subscriberEvent.UserId,
-            SubscribedUserId = subscriberEvent.FollowerUserId,
-            Timestamp = subscriberEvent.OccurredAt
-        };
-
-        return await _emailTemplateRendererService.RenderTemplateAsync("Email/NewSubscriberEmail", testEmailModel);
     }
 }
