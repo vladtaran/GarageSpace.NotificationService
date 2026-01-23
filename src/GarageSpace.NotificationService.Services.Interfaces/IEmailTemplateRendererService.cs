@@ -1,4 +1,4 @@
-namespace GarageSpace.NotificationService.Application.Interfaces;
+namespace GarageSpace.NotificationService.Services.Interfaces;
 
 public interface IEmailTemplateRendererService
 {

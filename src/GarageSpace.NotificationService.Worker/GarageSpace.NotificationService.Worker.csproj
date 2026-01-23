@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GarageSpace.Contracts" Version="0.1.0" />
+    <PackageReference Include="GarageSpace.Contracts" Version="0.1.1" />
     <PackageReference Include="MassTransit" Version="8.1.3" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GarageSpace.NotificationService.Application\GarageSpace.NotificationService.Application.csproj" />
-    <ProjectReference Include="..\GarageSpace.NotificationService.Infrastructure\GarageSpace.NotificationService.Infrastructure.csproj" />
+    <ProjectReference Include="..\GarageSpace.NotificationService.Services.Interfaces\GarageSpace.NotificationService.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\GarageSpace.NotificationService.Services\GarageSpace.NotificationService.Services.csproj" />
     <ProjectReference Include="..\GarageSpace.NotificationService.Templates\GarageSpace.NotificationService.Templates.csproj" />
   </ItemGroup>
 </Project>

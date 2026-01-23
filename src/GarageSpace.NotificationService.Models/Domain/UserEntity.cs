@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GarageSpace.NotificationService.Domain.Entities
+namespace GarageSpace.NotificationService.Models.Domain
 {
     [Table("Users")]
-    public class User : BaseEntity
+    public class UserEntity : BaseEntity
     {
         [Required]
         public string Name { get; set; }

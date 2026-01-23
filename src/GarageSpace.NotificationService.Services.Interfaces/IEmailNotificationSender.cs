@@ -1,4 +1,6 @@
-﻿namespace GarageSpace.NotificationService.Application.Interfaces
+﻿using GarageSpace.NotificationService.Models;
+
+namespace GarageSpace.NotificationService.Services.Interfaces
 {
     public interface IEmailNotificationSender
     {

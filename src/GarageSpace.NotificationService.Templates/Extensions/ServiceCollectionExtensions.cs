@@ -1,4 +1,4 @@
-using GarageSpace.NotificationService.Application.Interfaces;
+using GarageSpace.NotificationService.Services.Interfaces;
 using GarageSpace.NotificationService.Templates.Email;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

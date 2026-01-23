@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GarageSpace.NotificationService.Models\GarageSpace.NotificationService.Models.csproj" />
+  </ItemGroup>
+
 </Project>

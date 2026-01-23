@@ -1,16 +1,16 @@
-using MassTransit;
 using GarageSpace.Contracts;
-using GarageSpace.NotificationService.Application.Interfaces;
-using Microsoft.Extensions.Logging;
+using GarageSpace.NotificationService.Services.Interfaces;
+using GarageSpace.NotificationService.Worker.Mappers;
+using MassTransit;
 
-namespace GarageSpace.NotificationService.Application.Consumers;
+namespace GarageSpace.NotificationService.Worker.Consumers;
 
-public class NewSubscriberCreatedConsumer : IConsumer<UserBlogFollowedEvent>
+public class SubscriberEventsConsumer : IConsumer<UserBlogFollowedEvent>
 {
-    private readonly ILogger<NewSubscriberCreatedConsumer> _logger;
+    private readonly ILogger<SubscriberEventsConsumer> _logger;
     private readonly INotificationService _notificationService;
 
-    public NewSubscriberCreatedConsumer(ILogger<NewSubscriberCreatedConsumer> logger, INotificationService notificationService)
+    public SubscriberEventsConsumer(ILogger<SubscriberEventsConsumer> logger, INotificationService notificationService)
     {
         _logger = logger;
         _notificationService = notificationService;
@@ -25,7 +25,9 @@ public class NewSubscriberCreatedConsumer : IConsumer<UserBlogFollowedEvent>
 
         try
         {
-            await _notificationService.HandleNewSubscriberCreatedNotificationAsync(message, context.CancellationToken);
+            var userBlogFollower = UserFollowerMapper.MapFromUserBlogFollowedEvent(message);
+
+            await _notificationService.HandleNewFollowerCreatedNotificationAsync(userBlogFollower, message.OccurredAt);
         }
         catch (Exception ex)
         {

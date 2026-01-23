@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\GarageSpace.NotificationService.Application\GarageSpace.NotificationService.Application.csproj" />
+    <ProjectReference Include="..\..\src\GarageSpace.NotificationService.Services\GarageSpace.NotificationService.Services.csproj" />
     <ProjectReference Include="..\..\src\GarageSpace.NotificationService.Templates\GarageSpace.NotificationService.Templates.csproj" />
   </ItemGroup>
 
