@@ -1,5 +1,4 @@
-﻿
-namespace GarageSpace.NotificationService.Application.Interfaces
+﻿namespace GarageSpace.NotificationService.Models
 {
     public class EmailData
     {

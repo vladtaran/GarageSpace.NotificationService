@@ -1,4 +1,4 @@
-using GarageSpace.NotificationService.Application.Interfaces;
+using GarageSpace.NotificationService.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net;

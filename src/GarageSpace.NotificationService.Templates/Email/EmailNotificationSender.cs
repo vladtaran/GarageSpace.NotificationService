@@ -1,4 +1,5 @@
-﻿using GarageSpace.NotificationService.Application.Interfaces;
+﻿using GarageSpace.NotificationService.Models;
+using GarageSpace.NotificationService.Services.Interfaces;
 using GarageSpace.NotificationService.Templates.Models;
 using Microsoft.Extensions.Logging;
 

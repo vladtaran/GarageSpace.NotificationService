@@ -1,10 +1,10 @@
 using MassTransit;
 using GarageSpace.NotificationService.Templates.Extensions;
 using GarageSpace.NotificationService.Worker;
-using GarageSpace.NotificationService.Application.Consumers;
-using GarageSpace.NotificationService.Application.Services;
-using GarageSpace.NotificationService.Application.Interfaces;
 using GarageSpace.NotificationService.Templates.Email;
+using GarageSpace.NotificationService.Worker.Consumers;
+using GarageSpace.NotificationService.Services.Interfaces;
+using GarageSpace.NotificationService.Services;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
@@ -20,7 +20,7 @@ builder.Services.AddEmailTemplates();
 
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<NewSubscriberCreatedConsumer>();
+    x.AddConsumer<SubscriberEventsConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {

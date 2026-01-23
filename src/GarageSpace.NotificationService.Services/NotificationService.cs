@@ -1,50 +1,46 @@
-using GarageSpace.Contracts;
-using GarageSpace.NotificationService.Application.Interfaces;
-using Microsoft.Extensions.Configuration;
+using GarageSpace.NotificationService.Models;
+using GarageSpace.NotificationService.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace GarageSpace.NotificationService.Application.Services;
+namespace GarageSpace.NotificationService.Services;
 
 public class NotificationService : INotificationService
 {
     private readonly ILogger<NotificationService> _logger;
     private readonly IEmailNotificationSender _emailNotificationSender;
-    private readonly IConfiguration _configuration;
 
     public NotificationService(
         ILogger<NotificationService> logger,
-        IEmailNotificationSender emailNotificationSender,
-        IConfiguration configuration)
+        IEmailNotificationSender emailNotificationSender)
     {
         _logger = logger;
         _emailNotificationSender = emailNotificationSender;
-        _configuration = configuration;
     }
 
-    public async Task HandleNewSubscriberCreatedNotificationAsync(UserBlogFollowedEvent evt, CancellationToken cancellationToken = default)
+    public async Task HandleNewFollowerCreatedNotificationAsync(UserFollower follower, DateTime occuredAt)
     {
-        _logger.LogInformation("Sending new subscriber notification for user {FollowedUserId}", evt.FollowerUserId);
+        _logger.LogInformation("Sending new subscriber notification for user {FollowedUserId}", follower.FollowerUserId);
 
         try
         {
-            await SendEmailNotificationAsync(evt, cancellationToken);
+            await SendEmailNotificationAsync(follower);
 
             _logger.LogInformation("Successfully sent all notifications for new subscriber event");
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to send new subscriber notification for user {FollowedUserId}", evt.FollowerUserId);
+            _logger.LogError(ex, "Failed to send new subscriber notification for user {FollowedUserId}", follower.FollowerUserId);
             throw;
         }
     }
 
-    private async Task SendEmailNotificationAsync(UserBlogFollowedEvent subscriberEvent, CancellationToken cancellationToken)
+    private async Task SendEmailNotificationAsync(UserFollower follower)
     {
-        var recipientEmail = await GetUserEmailAsync(subscriberEvent.FollowerUserId, cancellationToken);
+        var recipientEmail = await GetUserEmailAsync(follower.UserId);
 
         if (string.IsNullOrWhiteSpace(recipientEmail))
         {
-            _logger.LogWarning("Cannot send email notification: No email address found for user {FollowedUserId}", subscriberEvent.FollowerUserId);
+            _logger.LogWarning("Cannot send email notification: No email address found for user {FollowedUserId}", follower.FollowerUserId);
             return;
         }
 
@@ -55,12 +51,12 @@ public class NotificationService : INotificationService
         catch (Exception ex)
         {
             _logger.LogError(ex,
-                "Failed to send email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, subscriberEvent.FollowerUserId);
+                "Failed to send email notification to {RecipientEmail} for user {FollowedUserId}", recipientEmail, follower.FollowerUserId);
             throw;
         }
     }
 
-    private async Task<string?> GetUserEmailAsync(long userId, CancellationToken cancellationToken)
+    private async Task<string?> GetUserEmailAsync(long userId)
     {
         // Best Practice: This should call your user service or database
         // For now, returning null - implement based on your architecture
@@ -73,4 +69,6 @@ public class NotificationService : INotificationService
         await Task.CompletedTask;
         return null;
     }
+
+    
 }

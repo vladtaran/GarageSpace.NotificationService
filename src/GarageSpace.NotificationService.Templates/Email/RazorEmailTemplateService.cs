@@ -1,4 +1,4 @@
-using GarageSpace.NotificationService.Application.Interfaces;
+using GarageSpace.NotificationService.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;

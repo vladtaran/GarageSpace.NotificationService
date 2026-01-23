@@ -1,4 +1,6 @@
-namespace GarageSpace.NotificationService.Domain.Repositories;
+using GarageSpace.NotificationService.Models.Domain;
+
+namespace GarageSpace.NotificationService.Repository.Interfaces;
 
 public interface IUserRepository
 {
@@ -7,6 +9,6 @@ public interface IUserRepository
     /// </summary>
     /// <param name="user">The user entity to create.</param>
     /// <returns>The created user with updated properties.</returns>
-    Task<User> CreateAsync(User user);
+    Task<UserEntity> CreateAsync(UserEntity user);
    
 } 
