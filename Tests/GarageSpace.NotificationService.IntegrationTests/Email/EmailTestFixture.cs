@@ -9,7 +9,7 @@ using GarageSpace.NotificationService.IntegrationTests.Infrastructure;
 using GarageSpace.NotificationService.Templates.Email;
 using GarageSpace.NotificationService.Services.Interfaces;
 
-namespace GarageSpace.NotificationService.IntegrationTests.Tests;
+namespace GarageSpace.NotificationService.IntegrationTests.Email;
 
 public sealed class EmailTestFixture : IDisposable
 {
