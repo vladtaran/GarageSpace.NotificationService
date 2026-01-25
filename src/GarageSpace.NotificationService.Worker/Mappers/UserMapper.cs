@@ -5,7 +5,7 @@ namespace GarageSpace.NotificationService.Worker.Mappers
 {
     public class UserMapper
     {
-        public static User MapFromUserCreated(UserCreated evt) 
+        public static User MapFromUserRegistered(UserRegistered evt) 
         {
             return new User
             {
