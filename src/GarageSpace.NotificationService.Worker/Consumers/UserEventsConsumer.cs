@@ -6,18 +6,18 @@ using MassTransit;
 
 namespace GarageSpace.NotificationService.Worker.Consumers
 {
-    public class UserEventsConsumer : IConsumer<UserCreated>
+    public class UserEventsConsumer : IConsumer<UserRegistered>
     {
         private readonly IUserManagementService _userManagementService;
         public UserEventsConsumer(IUserManagementService userManagementService) 
         {
             _userManagementService = userManagementService;
         }
-        public async Task Consume(ConsumeContext<UserCreated> context)
+        public async Task Consume(ConsumeContext<UserRegistered> context)
         {
             try
             {
-                User user = UserMapper.MapFromUserCreated(context.Message);
+                User user = UserMapper.MapFromUserRegistered(context.Message);
 
                 await _userManagementService.AddNewUser(user);
             }

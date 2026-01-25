@@ -4,7 +4,7 @@ using GarageSpace.NotificationService.Templates.Models;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace GarageSpace.NotificationService.IntegrationTests.Tests;
+namespace GarageSpace.NotificationService.IntegrationTests.Email;
 
 public class EmailServiceIntegrationTests : IClassFixture<EmailTestFixture>
 {
